@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: products-api
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: auth
+      app: products-api
   template:
     metadata:
       labels:
-        app: auth
+        app: products-api
     spec:
       containers:
-        - name: auth
-          image: widgetario/auth:latest
+        - name: products-api
+          image: widgetario/products-api:21.03
           ports:
-            - containerPort: 4000
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth
+  name: products-api
 spec:
   type: ClusterIP
   selector:
-    app: auth
+    app: products-api
   ports:
     - protocol: TCP
-      port: 4000
-      targetPort: 4000
+      port: 80
+      targetPort: 80
